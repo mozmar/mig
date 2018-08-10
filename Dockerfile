@@ -1,9 +1,6 @@
-FROM quay.io/mozmar/base
+FROM debian:stretch-slim
 
-RUN cd ~root && \
-	curl -LO https://s3.amazonaws.com/mozopsecrepo2/mig-public/engeng/mig-agent_20160715-0.a06734a.prod_amd64.deb && \
-	[ `sha256sum mig-agent_20160715-0.a06734a.prod_amd64.deb | cut -d ' ' -f 1` \
-	= "f70a3308199824495dc4329ac73f21db8f78ef1c619853e39155659edbebd834" ] && \
-	dpkg -i mig-agent_20160715-0.a06734a.prod_amd64.deb
+ADD mig-agent_20180803-0.e8eb90a.prod_amd64.deb .
+RUN dpkg -i mig-agent_20180803-0.e8eb90a.prod_amd64.deb
 
 CMD ["/sbin/mig-agent", "-f"]
